@@ -192,7 +192,7 @@ namespace WoodenMaze
             body.transform.SetParent(pivot, false);
             body.transform.localScale = new Vector3(0.9f, 0.3f, 0.9f);
             body.GetComponent<Renderer>().sharedMaterial = _mWood;
-            Destroy(body.GetComponent<Collider>());
+            Destroy(body.GetComponent<CapsuleCollider>());
 
             var notch = GameObject.CreatePrimitive(PrimitiveType.Cube);
             notch.name = "Grip";
@@ -200,7 +200,7 @@ namespace WoodenMaze
             notch.transform.localPosition = new Vector3(0f, -0.32f, 0f); // sticks out of the knob's outer face
             notch.transform.localScale = new Vector3(0.75f, 0.12f, 0.14f);
             notch.GetComponent<Renderer>().sharedMaterial = _mBox;
-            Destroy(notch.GetComponent<Collider>());
+            Destroy(notch.GetComponent<BoxCollider>());
             return pivot;
         }
 
@@ -268,7 +268,7 @@ namespace WoodenMaze
             // Glowing FINISH disc (visual only).
             var goal = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             goal.name = "Finish";
-            var goalCol = goal.GetComponent<Collider>();
+            var goalCol = goal.GetComponent<CapsuleCollider>();
             goalCol.enabled = false;
             Destroy(goalCol);
             goal.transform.SetParent(root.transform, false);
@@ -287,7 +287,7 @@ namespace WoodenMaze
             float x0 = -BoardW * 0.5f, z0 = -BoardH * 0.5f;
             float y = wallHeight * 0.5f;
 
-            // Walls along the x axis (north side of cells). Neighbouring pieces merge into one stick.
+            // Walls along the x axis (north side of cells). Neigbouring pieces merge into one stick.
             for (int cy = 0; cy < height - 1; cy++)
             {
                 int cx = 0;
@@ -341,7 +341,7 @@ namespace WoodenMaze
             go.transform.localPosition = localPos;
             go.transform.localScale = size;
             go.GetComponent<Renderer>().sharedMaterial = mat;
-            go.GetComponent<Collider>().sharedMaterial = phys;
+            go.GetComponent<BoxCollider>().sharedMaterial = phys;
         }
 
         void SetupCameraAndLight()
@@ -362,7 +362,7 @@ namespace WoodenMaze
             }
 
             bool hasLight = false;
-            foreach (var l in FindObjectsByType<Light>(FindObjectsSortMode.None))
+            foreach (var l in FindObjectsByType<Light>())
                 if (l.type == LightType.Directional) { hasLight = true; break; }
             if (!hasLight)
             {
