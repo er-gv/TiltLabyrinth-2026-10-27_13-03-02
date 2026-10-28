@@ -45,7 +45,7 @@ namespace WoodenMaze
         [Tooltip("On: the board eases back to level when no arrow key is held.")]
         public bool autoLevel = true;
         [Tooltip("Gravity is multiplied by this. The board is much bigger than a real one, so real gravity feels slow.")]
-        public float gravityMultiplier = 3f;
+        public float gravityMultiplier = 6f;
 
         [Header("Materials (optional, created automatically when empty)")]
         public Material woodMaterial;

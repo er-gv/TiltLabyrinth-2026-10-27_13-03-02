@@ -24,6 +24,8 @@ namespace WoodenMaze
         public Vector2Int Start;
         public Vector2Int Goal;
 
+        public readonly bool ShowPath;
+
         /// <summary>The route the white line follows, from Start to Goal.</summary>
         public readonly List<Vector2Int> Path = new List<Vector2Int>();
         /// <summary>Holes in the order they are numbered on the board (index 0 = hole "1").</summary>
@@ -34,11 +36,12 @@ namespace WoodenMaze
             new Vector2Int(0, 1), new Vector2Int(1, 0), new Vector2Int(0, -1), new Vector2Int(-1, 0)
         };
 
-        MazeLayout(int width, int height, int seed)
+        MazeLayout(int width, int height, int seed, bool showPath = false)
         {
             Width = width;
             Height = height;
             Seed = seed;
+            ShowPath = showPath;
             WallEast = new bool[width, height];
             WallNorth = new bool[width, height];
             IsHole = new bool[width, height];
@@ -71,11 +74,12 @@ namespace WoodenMaze
         {
             width = Mathf.Clamp(width, 4, 40);
             height = Mathf.Clamp(height, 4, 40);
-            var m = new MazeLayout(width, height, seed);
             var rng = new System.Random(seed);
-
-            m.Start = new Vector2Int(0, height - 1);
-            m.Goal = new Vector2Int(width - 1, 0);
+            var m = new MazeLayout(width, height, seed, 0 == (rng.Next() % 2))
+            {
+                Start = new Vector2Int(0, height - 1),
+                Goal = new Vector2Int(width - 1, 0)
+            };
 
             // 1-2. Carve a few perfect mazes (recursive backtracker) and keep the one whose
             //      START-to-FINISH route is longest, so the white line winds across the board.

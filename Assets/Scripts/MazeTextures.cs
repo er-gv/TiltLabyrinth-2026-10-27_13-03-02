@@ -80,17 +80,20 @@ namespace WoodenMaze
                 }
             }
 
-            // The white route line.
+            
+            
             float lineR = lineWidthCells * ppc * 0.5f;
             var pts = m.SmoothPath(3);
-            for (int i = 0; i < pts.Count - 1; i++)
-            {
-                Vector2 a = pts[i] * ppc, b = pts[i + 1] * ppc;
-                int steps = Mathf.Max(1, Mathf.CeilToInt(Vector2.Distance(a, b) / 0.75f));
-                for (int s = 0; s <= steps; s++)
-                    StampDisc(mask, w, h, Vector2.Lerp(a, b, s / (float)steps), lineR);
+            if(m.ShowPath){
+                RenderPath(pts, mask, lineR, ppc, w, h);
+            // The white route line.
+                for (int i = 0; i < pts.Count - 1; i++){
+                    Vector2 a = pts[i] * ppc, b = pts[i + 1] * ppc;
+                    int steps = Mathf.Max(1, Mathf.CeilToInt(Vector2.Distance(a, b) / 0.75f));
+                    for (int s = 0; s <= steps; s++)
+                        StampDisc(mask, w, h, Vector2.Lerp(a, b, s / (float)steps), lineR);
+                }
             }
-
             // Start and finish rings.
             Vector2 start = new Vector2(m.Start.x + 0.5f, m.Start.y + 0.5f) * ppc;
             Vector2 goal = new Vector2(m.Goal.x + 0.5f, m.Goal.y + 0.5f) * ppc;
@@ -135,6 +138,14 @@ namespace WoodenMaze
             return tex;
         }
 
+        private static void RenderPath(List<Vector2> points, float[] mask, float lineR, int ppc, int w, int h){
+             for (int i = 0; i < points.Count - 1; i++){
+                    Vector2 a = points[i] * ppc, b = points[i + 1] * ppc;
+                    int steps = Mathf.Max(1, Mathf.CeilToInt(Vector2.Distance(a, b) / 0.75f));
+                    for (int s = 0; s <= steps; s++)
+                        StampDisc(mask, w, h, Vector2.Lerp(a, b, s / (float)steps), lineR);
+                }
+        }
         static void LabelCell(float[] mask, int w, int h, string text, Vector2Int cell, Vector2Int exitDir,
             int ppc, int margin, int scale)
         {

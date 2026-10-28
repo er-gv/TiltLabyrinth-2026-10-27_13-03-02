@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-namespace WoodenMaze
-{
+namespace WoodenMaze{
     /// <summary>
     /// Keyboard input that works with either the old Input Manager or the new Input System
     /// (whichever the project has enabled under Player Settings > Active Input Handling).
