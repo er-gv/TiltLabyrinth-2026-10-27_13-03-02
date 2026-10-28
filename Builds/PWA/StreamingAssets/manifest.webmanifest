@@ -1,0 +1,15 @@
+{
+    "name": "TiltLabyrinth",
+    "short_name": "TiltLabyrinth",
+    "start_url": "index.html",
+    "display": "fullscreen",
+    "background_color": "#805327",
+    "theme_color": "#000",
+    "description": "wooden box labyrinth",
+    "icons": [{
+      "src": "TemplateData/icons/unity-logo-dark.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }]
+  }
