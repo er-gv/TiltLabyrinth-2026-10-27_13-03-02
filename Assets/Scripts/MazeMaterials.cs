@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WoodenMaze
+namespace com.albol.TiltingMaze
 {
     /// <summary>
     /// Material helpers that work in both the Built-in render pipeline (Standard shader)

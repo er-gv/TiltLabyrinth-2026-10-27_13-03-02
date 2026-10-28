@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WoodenMaze
+namespace com.albol.TiltingMaze
 {
     /// <summary>
     /// Procedural textures, so the project needs no image assets:

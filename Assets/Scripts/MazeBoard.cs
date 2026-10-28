@@ -1,15 +1,13 @@
 using UnityEngine;
 
-namespace WoodenMaze
-{
+namespace com.albol.TiltingMaze{
     /// <summary>
     /// The tilting part of the labyrinth. It is a kinematic Rigidbody rotated with
     /// MoveRotation, so the marble (a normal dynamic Rigidbody) gets pushed and rolls
     /// correctly under gravity while the board moves.
     /// </summary>
     [RequireComponent(typeof(Rigidbody))]
-    public class MazeBoard : MonoBehaviour
-    {
+    public class MazeBoard : MonoBehaviour{
         [Tooltip("Largest tilt in degrees, in each direction.")]
         public float maxTilt = 10f;
         [Tooltip("How fast the board tilts while an arrow key is held (degrees per second).")]
@@ -30,8 +28,7 @@ namespace WoodenMaze
         Rigidbody _body;
         Quaternion _baseRotation;
 
-        void Awake()
-        {
+        void Awake(){
             _body = GetComponent<Rigidbody>();
             _body.isKinematic = true;
             _body.useGravity = false;
@@ -39,16 +36,14 @@ namespace WoodenMaze
             _baseRotation = transform.rotation;
         }
 
-        public void ResetTilt()
-        {
+        public void ResetTilt(){
             Tilt = Vector2.zero;
             input = Vector2.zero;
             transform.rotation = _baseRotation;
             _body.rotation = _baseRotation;
         }
 
-        void FixedUpdate()
-        {
+        void FixedUpdate(){
             float dt = Time.fixedDeltaTime;
             Vector2 target = forceLevel ? Vector2.zero : input;
             Tilt = new Vector2(Step(Tilt.x, target.x, dt), Step(Tilt.y, target.y, dt));
@@ -56,8 +51,7 @@ namespace WoodenMaze
             _body.MoveRotation(_baseRotation * Quaternion.Euler(Tilt.y, 0f, -Tilt.x));
         }
 
-        float Step(float current, float key, float dt)
-        {
+        float Step(float current, float key, float dt){
             if (Mathf.Abs(key) > 0.01f)
                 return Mathf.MoveTowards(current, key * maxTilt, tiltSpeed * dt);
             if (autoLevel || forceLevel)

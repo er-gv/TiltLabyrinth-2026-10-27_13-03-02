@@ -1,9 +1,9 @@
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
+//#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
-#endif
+//#endif
 
-namespace WoodenMaze{
+namespace com.albol.TiltingMaze{
     /// <summary>
     /// Keyboard input that works with either the old Input Manager or the new Input System
     /// (whichever the project has enabled under Player Settings > Active Input Handling).
@@ -58,5 +58,12 @@ namespace WoodenMaze{
             return Input.GetKeyDown(KeyCode.Escape);
 #endif
         }
+    
+        public static void OnTilt(InputAction.CallbackContext context){
+        // Read the Vector3 value from the accelerometer
+        Vector3 rawAcceleration = context.ReadValue<Vector3>();
+
+        Vector3 movementVector = new Vector3(rawAcceleration.x, 0, rawAcceleration.y);   
     }
-}
+}}
+

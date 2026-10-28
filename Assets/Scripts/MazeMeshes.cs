@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace WoodenMaze
+namespace com.albol.TiltingMaze
 {
     /// <summary>
     /// Builds the maze floor as one mesh with real round holes cut through it,

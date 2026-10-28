@@ -8,7 +8,7 @@ using PhysCombine = UnityEngine.PhysicMaterialCombine;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace WoodenMaze
+namespace com.albol.TiltingMaze
 {
     /// <summary>
     /// The whole game. Put this on one GameObject in an otherwise empty scene and press Play:
@@ -28,6 +28,8 @@ namespace WoodenMaze
         [Range(0f, 0.8f)] public float wallRemoval = 0.3f;
         [Tooltip("Share of the cells off the route that become holes.")]
         [Range(0f, 1f)] public float holeDensity = 0.6f;
+        [Tooltip("Show path from starting point to finish.")]
+        public bool showPath = false;
 
         [Header("Sizes (world units)")]
         public float cellSize = 1f;
@@ -236,7 +238,7 @@ namespace WoodenMaze
             if (_floorTex) Destroy(_floorTex);
             if (_floorMesh) Destroy(_floorMesh);
 
-            _layout = MazeLayout.Generate(width, height, seed, wallRemoval, holeDensity);
+            _layout = MazeLayout.Generate(width, height, seed, wallRemoval, holeDensity, showPath);
             _best = PlayerPrefs.GetFloat(BestKey, 0f);
 
             var root = new GameObject("Maze Board");

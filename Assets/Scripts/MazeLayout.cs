@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WoodenMaze
+namespace com.albol.TiltingMaze
 {
     /// <summary>
     /// Procedural layout of a classic tilting labyrinth: a grid of cells with thin
@@ -70,12 +70,12 @@ namespace WoodenMaze
         /// <param name="wallRemoval">0..1, share of extra walls knocked out so the board looks like
         /// the real game (sparse sticks) instead of a dense paper maze.</param>
         /// <param name="holeDensity">0..1, share of off-route cells that become holes.</param>
-        public static MazeLayout Generate(int width, int height, int seed, float wallRemoval, float holeDensity)
+        public static MazeLayout Generate(int width, int height, int seed, float wallRemoval, float holeDensity, bool showPath = false)
         {
             width = Mathf.Clamp(width, 4, 40);
             height = Mathf.Clamp(height, 4, 40);
             var rng = new System.Random(seed);
-            var m = new MazeLayout(width, height, seed, 0 == (rng.Next() % 2))
+            var m = new MazeLayout(width, height, seed, showPath)
             {
                 Start = new Vector2Int(0, height - 1),
                 Goal = new Vector2Int(width - 1, 0)
